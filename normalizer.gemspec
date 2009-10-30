@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/normalizer.rb",
+     "normalizer.gemspec",
      "spec/normalizer_spec.rb",
      "spec/spec_helper.rb"
   ]
