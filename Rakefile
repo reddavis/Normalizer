@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "normalizer"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Tool for normalizing data}
+    gem.description = %Q{Tool for normalizing data}
     gem.email = "reddavis@gmail.com"
     gem.homepage = "http://github.com/reddavis/normalizer"
     gem.authors = ["reddavis"]
