@@ -25,6 +25,10 @@ To find the min/max of your current data:
   Normalizer.find_min_and_max(data)
     #=> [[0, 1, 2, 3, 4], [10, 11, 12, 13, 14]]
 
+= Thanks
+
+David Richards (http://blog.tegugears.com/)
+
 == Copyright
 
 Copyright (c) 2009 reddavis. See LICENSE for details.
