@@ -1,7 +1,7 @@
 class Normalizer
   
   class << self
-    def find_max_and_min(data, options={})
+    def find_min_and_max(data, options={})
       @data = data
       @std = options[:std] || 0
       @max, @min = find_max, find_min

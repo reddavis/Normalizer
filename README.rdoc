@@ -1,17 +1,29 @@
-= normalizer
+= Normalizer
 
-Description goes here.
+Normalizer is a tool for normalizing your data.
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but
-   bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+= Installation
+
+  gem sources -a http://gemcutter.org
+  sudo gem install normalizer
+  
+= Usage
+
+To normalize data that you already have the min/max of:
+
+  a = Normalizer.new(:min => [0], :max => [10])
+  a.normalize([5])
+    #=> [0.5]
+    
+  b = Normalizer.new(:min => [0, 0], :max => [10, 10])
+  b.normalize([5, 5])
+    #=> [0.5, 0.5]
+    
+To find the min/max of your current data:
+
+  data = [[0, 1, 2, 3, 4], [10, 11, 12, 13, 14]]
+  Normalizer.find_min_and_max(data)
+    #=> [[0, 1, 2, 3, 4], [10, 11, 12, 13, 14]]
 
 == Copyright
 

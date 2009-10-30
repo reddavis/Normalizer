@@ -14,7 +14,7 @@ describe "Normalizer" do
     describe "With 0 Standard deviation" do
       before(:all) do
         data = [[0, 1, 2, 3, 4], [10, 11, 12, 13, 14]]
-        @a = Normalizer.find_max_and_min(data)
+        @a = Normalizer.find_min_and_max(data)
       end
       
       it "should return 10,11,12,13,14 for max" do
