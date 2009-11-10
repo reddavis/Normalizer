@@ -24,6 +24,17 @@ To find the min/max of your current data:
   data = [[0, 1, 2, 3, 4], [10, 11, 12, 13, 14]]
   Normalizer.find_min_and_max(data)
     #=> [[0, 1, 2, 3, 4], [10, 11, 12, 13, 14]]
+    
+You can also use a buffer on the max/min by setting a buffer in standard deviations:
+  data = [[0, 0, 0, 0, 0], [10, 10, 10, 10, 10]]
+  Normalizer.find_min_and_max(data, :std => 3)
+    #=> [[-21.2132034355964, -21.2132034355964, -21.2132034355964, -21.2132034355964, -21.2132034355964], [31.2132034355964, 31.2132034355964, 31.2132034355964, 31.2132034355964, 31.2132034355964]]
+    
+On a project I'm currently working on I need to know whether data has gone past the max/min amount:
+  a = Normalizer.new(:min => [0], :max => [10])
+  a.normalize([50])
+  a.breaks_boundary?
+    #=> true
 
 = Thanks
 
@@ -31,4 +42,4 @@ David Richards (http://blog.tegugears.com/)
 
 == Copyright
 
-Copyright (c) 2009 reddavis. See LICENSE for details.
+Copyright (c) 2009 Red Davis. See LICENSE for details.
