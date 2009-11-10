@@ -23,6 +23,11 @@ describe "Normalizer" do
         results = @a.normalize([2])
         @a.breaks_boundary?.should be_false
       end
+      
+      it "should still only return data between 0 and 1" do
+        results = @a.normalize([20])
+        results[0].should == 1
+      end
     end
   end
  

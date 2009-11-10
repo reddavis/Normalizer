@@ -102,20 +102,35 @@ class Normalizer
   end
     
   def normalize(data)
-    @normalized = Array.new(data.size)
+    normalized = Array.new(data.size)
 
     data.each_with_index do |n, index|
-      @normalized[index] = (n.to_f - @min[index]) / @ranges[index]
+      normalized[index] = (n.to_f - @min[index]) / @ranges[index]
     end
     
-    @normalized
+    @breaks_boundary = normalized.any? {|x| x > 1 || x < 0}
+    
+    round_to_boundaries(normalized)
   end
   
   def breaks_boundary?
-    @normalized.any? {|x| x > 1 || x < 0}
+    @breaks_boundary
   end
       
   private
+  
+  # Data shouldn't go over/under the boundary
+  def round_to_boundaries(normalized_data)
+    normalized_data.map do |x|
+      if x > 1
+        1
+      elsif x < 0
+        0
+      else
+        x
+      end
+    end
+  end
     
   def calculate_ranges
     range = []
