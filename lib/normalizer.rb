@@ -4,14 +4,55 @@ class Normalizer
     def find_min_and_max(data, options={})
       @data = data
       @std = options[:std] || 0
+      @cat_data = Array.new(@data[0].size) { Array.new }
+      
+      # Along with finding max and min this also fills @cat_data like so:
+      # [[1,2,3], [1,2,3]] turns into [[1,1], [2,2], [3,3]] so we can calculate
       @max, @min = find_max, find_min
       
       unless @std > 0
+        [@min, @max]
+      else
+        mean = find_mean
+        std = calculate_std(mean)
+        
+        @max.each_with_index do |n, i|
+          @max[i] = n + (std[i] * @std)
+        end
+        
+        @min.each_with_index do |n, i|
+          @min[i] = n - (std[i] * @std)
+        end
+        
         [@min, @max]
       end
     end
     
     private
+    
+    def calculate_std(mean)
+      std = []
+      
+      @cat_data.each do |set|
+        var = 0.0
+        set.each_with_index do |n, index|
+          var += ((n - mean[index]) ** 2)
+        end
+        std << Math.sqrt(var)
+      end
+      
+      std
+    end
+    
+    def find_mean
+      mean = []
+      
+      @cat_data.each do |i|
+        sum = i.inject(0.0) {|sum, n| sum += n}
+        mean << sum / i.size
+      end
+      mean
+    end
         
     def find_max
       @max = []
@@ -36,6 +77,7 @@ class Normalizer
     def find_max_in_set(index)
       max = 0.0
       @data.each do |set|
+        @cat_data[index] << set[index]
         max = set[index] > max ? set[index] : max
       end
       max
@@ -60,13 +102,17 @@ class Normalizer
   end
     
   def normalize(data)
-    normalized = Array.new(data.size)
+    @normalized = Array.new(data.size)
 
     data.each_with_index do |n, index|
-      normalized[index] = (n.to_f - @min[index]) / @ranges[index]
+      @normalized[index] = (n.to_f - @min[index]) / @ranges[index]
     end
     
-    normalized
+    @normalized
+  end
+  
+  def breaks_boundary?
+    @normalized.any? {|x| x > 1 || x < 0}
   end
       
   private
